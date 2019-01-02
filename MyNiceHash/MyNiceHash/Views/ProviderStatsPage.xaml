@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:converter="clr-namespace:MyNiceHash.Converters"
+             x:Class="MyNiceHash.Views.ProviderStatsPage"
+             Title="Stats">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ContentView>
+            <ContentView.Content>
+                <StackLayout>
+                    <StackLayout Padding="10, 5, 10, 5">
+                        <Label Text="{Binding TotalBalance, StringFormat='Total balance: {0:C} BTC'}}"
+                               IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}"/>
+                    </StackLayout>
+                    <ListView ItemsSource="{Binding Stats}"  IsRefreshing="{Binding IsBusy}" IsPullToRefreshEnabled="True" 
+                          RefreshCommand="{Binding RefreshCommand}" HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ContentView>
+                                        <Grid Padding="10, 5, 10, 5">
+                                            <Label Text="{Binding Algorithm}" Grid.Column="0" Grid.Row="0" HorizontalOptions="Start"/>
+                                            <Label Text="{Binding Balance, StringFormat='{0:C} BTC'}}" Grid.Column="0" Grid.Row="1" HorizontalOptions="Start"/>
+                                            <Label Text="{Binding AcceptedSpeed, StringFormat='Accepted: {0:C}'}}" Grid.Column="1" Grid.Row="0" HorizontalOptions="End"/>
+                                            <Label Text="{Binding RejectedSpeed, StringFormat='Rejected: {0:C}'}}" Grid.Column="1" Grid.Row="1" HorizontalOptions="End"/>
+                                        </Grid>
+                                    </ContentView>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ContentView.Content>
+        </ContentView>
+    </ContentPage.Content>
+</ContentPage>

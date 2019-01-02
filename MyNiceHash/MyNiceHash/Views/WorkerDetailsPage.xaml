@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyNiceHash.Views.WorkerDetailsPage"
+             Title="{Binding Worker.Name}">
+    <ContentPage.Content>
+        <ContentView>
+            <ContentView.Content>
+                <StackLayout>
+                    <TableView Intent="Data" HasUnevenRows="True">
+                        <TableRoot>
+                            <TableSection>
+                                <TextCell Text="Time connected" Detail="{Binding Worker.TimeConnected, StringFormat='{0:C} minutes'}"/>
+                                <TextCell Text="Xnsub" Detail="{Binding Worker.XnSub}"/>
+                                <TextCell Text="Difficulty" Detail="{Binding Worker.Difficulty}"/>
+                                <TextCell Text="Location" Detail="{Binding Worker.Location}"/>
+                                <TextCell Text="Accepted speed" Detail="{Binding Worker.AcceptedSpeed}"/>
+                                <TextCell Text="Rejected target speed" Detail="{Binding Worker.RejectedTargetSpeed}" DetailColor="Red"/>
+                                <TextCell Text="Rejected stale speed" Detail="{Binding Worker.RejectedStaleSpeed}" DetailColor="Red"/>
+                                <TextCell Text="Rejected duplicate speed" Detail="{Binding Worker.RejectedDuplicateSpeed}" DetailColor="Red"/>
+                                <TextCell Text="Rejected other speed" Detail="{Binding Worker.RejectedOtherSpeed}" DetailColor="Red"/>
+                            </TableSection>
+                        </TableRoot>
+                    </TableView>
+                </StackLayout>
+            </ContentView.Content>
+        </ContentView>
+    </ContentPage.Content>
+</ContentPage>

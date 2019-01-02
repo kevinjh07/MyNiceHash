@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             x:Class="MyNiceHash.Views.ProviderWorkersPage"
+             Title="Workers">
+    <ContentPage.Content>
+        <ContentView>
+            <ContentView.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0">
+                        <Picker Title="Select algorithm" SelectedIndex="{Binding SelectedAlgorithmIndex, Mode=TwoWay}">
+                            <Picker.Behaviors>
+                                <b:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding AlgorithmChangedCommand}"/>
+                            </Picker.Behaviors>
+                            <Picker.Items>
+                                <x:String>Scrypt</x:String>
+                                <x:String>SHA256</x:String>
+                                <x:String>ScryptNf</x:String>
+                                <x:String>X11</x:String>
+                                <x:String>X13</x:String>
+                                <x:String>Keccak</x:String>
+                                <x:String>X15</x:String>
+                                <x:String>Nist5</x:String>
+                                <x:String>NeoScrypt</x:String>
+                                <x:String>Lyra2RE</x:String>
+                                <x:String>WhirlpoolX</x:String>
+                                <x:String>Qubit</x:String>
+                                <x:String>Quark</x:String>
+                                <x:String>Axiom</x:String>
+                                <x:String>Lyra2REv2</x:String>
+                                <x:String>ScryptJaneNf16</x:String>
+                                <x:String>Blake256r8</x:String>
+                                <x:String>Blake256r14</x:String>
+                                <x:String>Blake256r8vnl</x:String>
+                                <x:String>Hodl</x:String>
+                                <x:String>DaggerHashimoto</x:String>
+                                <x:String>Decred</x:String>
+                                <x:String>CryptoNight</x:String>
+                                <x:String>Lbry</x:String>
+                                <x:String>Equihash</x:String>
+                                <x:String>Pascal</x:String>
+                                <x:String>X11Gost</x:String>
+                                <x:String>Sia</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout IsVisible="{Binding NoWorkers}" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="No workers for selected algorithm."/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" >
+                        <ListView ItemsSource="{Binding Workers}" SelectedItem="{Binding SelectedWorker, Mode=TwoWay}" IsRefreshing="{Binding IsBusy}" 
+                                  IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" HasUnevenRows="True">
+                            <ListView.Behaviors>
+                                <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}"/>
+                            </ListView.Behaviors>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </Grid>
+            </ContentView.Content>
+        </ContentView>
+    </ContentPage.Content>
+</ContentPage>
